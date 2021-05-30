@@ -46,14 +46,9 @@ const Home = ({jsonProducts}) => {
 
 export const getStaticProps = async () => {
   const jsonProducts = await getProducts("/");
-
-  if(jsonProducts){
-    console.log('getStaticProps = ')
-    console.log(jsonProducts[0])
-    return {
-      props: {jsonProducts},
-    };
-  }
+  return {
+    props: { jsonProducts },
+  };
 }
 
 export default Home;
