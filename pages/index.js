@@ -8,7 +8,7 @@ import StaticProductList from "../components/StaticProductList";
 import { StoreContext } from "../store"
 
 import { getTitle } from "../utils";
-import { setPage, setPreRenderPage } from "../actions";
+import { setPage } from "../actions";
 import { getProducts } from "../api";
 
 const { Header, Content, Footer } = Layout;
