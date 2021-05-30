@@ -4,21 +4,23 @@ import Head from 'next/head'
 import NavBar from "../components/NavBar";
 import AppHeader from "../components/Header"
 import AppFooter from "../components/Footer"
-import ProductList from "../components/ProductList";
+import StaticProductList from "../components/StaticProductList";
 import { StoreContext } from "../store"
 
 import { getTitle } from "../utils";
-import { setPage } from "../actions";
+import { setPage, setPreRenderPage } from "../actions";
+import { getProducts } from "../api";
 
 const { Header, Content, Footer } = Layout;
 
-function Home() {
-  const { state: { page: { title } }, dispatch } = useContext(StoreContext);
+const Home = ({jsonProducts}) => {
+  const { dispatch } = useContext(StoreContext);
 
   useEffect(() => {
     const url = window.location.pathname;
     setPage(dispatch, url, getTitle(url))
   }, []);// eslint-disable-line react-hooks/exhaustive-deps  
+
   return (
     <Layout className="container main-layout">
       <Head>
@@ -29,10 +31,10 @@ function Home() {
       </Layout>
       <Layout className="bg-gray main-area">
         <Header className="layout-header">
-          <AppHeader title={title} />
+          <AppHeader title={"NORDIC NEST Shopping Cart"} />
         </Header>
         <Content className="layout-content">
-          <ProductList />
+          <StaticProductList staticProducts={jsonProducts} />
         </Content>
         <Footer className="layout-footer">
           <AppFooter />
@@ -40,6 +42,18 @@ function Home() {
       </Layout>
     </Layout>
   );
+}
+
+export const getStaticProps = async () => {
+  const jsonProducts = await getProducts("/");
+
+  if(jsonProducts){
+    console.log('getStaticProps = ')
+    console.log(jsonProducts[0])
+    return {
+      props: {jsonProducts},
+    };
+  }
 }
 
 export default Home;

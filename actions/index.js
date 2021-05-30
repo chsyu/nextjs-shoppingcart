@@ -122,6 +122,13 @@ export const setProductDetail = async (dispatch, productId, qty) => {
   }
 }
 
+export const setPreRenderPage = ( dispatch, title, products) => {
+  dispatch({
+    type: SET_PAGE_CONTENT,
+    payload: { title, products },
+  });
+}
+
 export const setPage = async (dispatch, url, title) => {
   let products = [];
   dispatch({ type: BEGIN_PRODUCTS_REQUEST });
