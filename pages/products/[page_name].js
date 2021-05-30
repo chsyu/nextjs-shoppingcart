@@ -1,20 +1,19 @@
 import { useContext, useEffect } from "react";
 import { Layout } from 'antd';
 import Head from 'next/head'
-import NavBar from "../components/NavBar";
-import AppHeader from "../components/Header"
-import AppFooter from "../components/Footer"
-import ProductList from "../components/ProductList";
-import { StoreContext } from "../store"
+import NavBar from "../../components/NavBar";
+import AppHeader from "../../components/Header"
+import AppFooter from "../../components/Footer"
+import ProductList from "../../components/ProductList";
+import { StoreContext } from "../../store"
 
-import { getTitle } from "../utils";
-import { setPage } from "../actions";
+import { getTitle } from "../../utils";
+import { setPage } from "../../actions";
 
 const { Header, Content, Footer } = Layout;
 
-function Home() {
+function Products() {
   const { state: { page: { title } }, dispatch } = useContext(StoreContext);
-
   useEffect(() => {
     const url = window.location.pathname;
     setPage(dispatch, url, getTitle(url))
@@ -22,7 +21,7 @@ function Home() {
   return (
     <Layout className="container main-layout">
       <Head>
-        <title>Home Page</title>
+        <title>Products Page</title>
       </Head>
       <Layout className="bg-gray nav-area">
         <NavBar />
@@ -42,4 +41,5 @@ function Home() {
   );
 }
 
-export default Home;
+export default Products;
+
